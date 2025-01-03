@@ -89,8 +89,10 @@ public class MessageDAOImpl implements MessageDAO{
     // 6) Delete Message by MessageID
     @Override
     public Message deleteMessageByMessageID(int message_id){
-        Message message = new Message();
-        message = this.retrieveMessageByMessageID(message_id);
+        Message message = this.retrieveMessageByMessageID(message_id);
+        if (message == null){
+            return message;
+        }
 
         message.setMessage_id(message_id);
 
@@ -134,6 +136,7 @@ public class MessageDAOImpl implements MessageDAO{
         if (message == null){
             return null;
         }
+        message.setMessage_text(message_text);
 
          try (Connection connection = ConnectionUtil.getConnection()){
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?;";
@@ -145,6 +148,7 @@ public class MessageDAOImpl implements MessageDAO{
             preparedStatement.executeUpdate();
          } catch(SQLException e){
                System.out.println(e.getMessage());
+               e.printStackTrace();
          }
 
         return message;

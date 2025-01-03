@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import Model.Account;
 import Model.Message;
@@ -154,7 +155,10 @@ public class SocialMediaController {
     // @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
     private void updateMessageHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        String message_text = mapper.readValue(ctx.body(), String.class);
+
+        JsonNode jsonNode = mapper.readTree(ctx.body());
+        String message_text = jsonNode.get("message_text").asText();
+
         String string_message_id = ctx.pathParam("message_id");
         Integer message_id = Integer.parseInt(string_message_id);
         Message returnMessage = messageService.updateMessage(message_id, message_text);
