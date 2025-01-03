@@ -1,14 +1,15 @@
 package DAO;
 
+import java.util.ArrayList;
 import Model.Message;
 
 
 public interface MessageDAO {
     // 3) Create New Message
-    public void createMessage(Message message);
+    public Message createMessage(Message message);
 
     // 4) Retrieve all Messages
-    public void retrieveMessages();
+    public ArrayList<Message> retrieveMessages();
 
     // 5) Retrieve Message by ID
     public Message retrieveMessageByMessageID(int message_id);
@@ -17,8 +18,9 @@ public interface MessageDAO {
     public Message deleteMessageByMessageID(int message_id);
 
     // 7) Update Message by MessageID
-    public Message updateMessageByMessageID(int message_id);
+    public boolean checkMessageIDExists(int message_id);
+    public Message updateMessageByMessageID(int message_id, String message_text);
 
     // 8) Retrieve all messages for user
-    public void retrieveMessageByAccountID(int account_id);
+    public ArrayList<Message> retrieveMessageByAccountID(int account_id);
 }

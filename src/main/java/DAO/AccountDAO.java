@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import Model.Account;
 
 public interface AccountDAO {
-
     // 1) Create New Account
-    public void createAccount(Account account);
+    public boolean checkUserNameExists(String userName);
+    public boolean checkAccountIDExists(int id);
+
+    public Account createAccount(Account account);
+
+    public Account returnAccountByUserName(String userName);
 
     // 2) Process Logins
-    public void loginAccount(Account account);
+    public Account loginAccount(Account account);
 
 } 
